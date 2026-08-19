@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ff8fab" />
+    <meta name="description" content="A birthday surprise & date planner made just for Haziqah ❤️" />
+    <title>Happy Birthday, Haziqah 🎂❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient" aria-hidden="true">
+      <div class="ambient__glow ambient__glow--one"></div>
+      <div class="ambient__glow ambient__glow--two"></div>
+      <div class="ambient__glow ambient__glow--three"></div>
+      <div id="floating-hearts" class="floating-hearts"></div>
+      <div id="sparkles" class="sparkles"></div>
+    </div>
+
+    <div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
+
+    <audio id="birthday-song" src="assets/music/song.mp3" loop preload="auto"></audio>
+    <button type="button" class="music-toggle" id="btn-music" hidden aria-label="Pause music">
+      🎵
+    </button>
+
+    <div id="envelope-overlay" class="envelope-overlay" hidden>
+      <button type="button" class="envelope" id="envelope" aria-label="Open letter for Haziqah">
+        <span class="envelope__liner" aria-hidden="true"></span>
+        <span class="envelope__body">
+          <span class="envelope__to">For Haziqah ❤️</span>
+        </span>
+        <span class="envelope__flap" aria-hidden="true"></span>
+        <span class="envelope__flap-edge" aria-hidden="true"></span>
+        <span class="envelope__seal" aria-hidden="true">❤️</span>
+      </button>
+      <p class="envelope-hint" id="envelope-hint">Tap the letter to open</p>
+    </div>
+
+    <main class="app" id="app">
+      <header class="brand opening-enter" id="opening-brand" aria-label="For Haziqah">
+        <p class="brand__name">For Haziqah</p>
+        <p class="brand__tag">a birthday surprise, just for you</p>
+      </header>
+
+      <nav
+        id="progress"
+        class="progress"
+        aria-label="Date planning progress"
+        hidden
+      ></nav>
+
+      <!-- Opening: Birthday Surprise -->
+      <section
+        class="screen is-active"
+        id="screen-opening"
+        data-screen="opening"
+        aria-labelledby="opening-title"
+      >
+        <div class="card stage-card opening-card">
+          <div class="opening-mascot opening-enter" id="opening-mascot">
+            <img
+              id="gif-opening"
+              class="gif"
+              src="assets/cat-hopeful.svg"
+              alt="Cute birthday cat illustration"
+              loading="eager"
+            />
+          </div>
+          <div class="opening-lines" id="opening-lines" aria-live="polite">
+            <p class="opening-line opening-line--whisper" data-line="0">Hey Haziqah... ❤️</p>
+            <p class="opening-line opening-line--build" data-line="1">I made something for you.</p>
+            <p class="opening-line opening-line--build" data-line="2">
+              Something a little different this year...
+            </p>
+            <h1 id="opening-title" class="opening-line headline headline--big" data-line="3">
+              Are you ready? 🎁
+            </h1>
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary btn-wide opening-cta opening-enter"
+            id="btn-open-surprise"
+            hidden
+          >
+            Open Your Surprise 💌
+          </button>
+        </div>
+      </section>
+
+      <!-- Birthday letter + collage -->
+      <section
+        class="screen"
+        id="screen-wish"
+        data-screen="wish"
+        aria-labelledby="wish-title"
+        hidden
+      >
+        <div class="card stage-card wish-card" id="wish-card">
+          <div class="polaroid-collage" id="polaroid-collage" aria-label="Photo memories of Haziqah"></div>
+          <h1 id="wish-title" class="wish-title">Happy Birthday, Haziqah ❤️</h1>
+          <article class="wish-letter" id="wish-letter">
+            <p>To my favourite person,</p>
+            <p>Happy Birthday, Haziqah. ❤️</p>
+            <p>
+              Today is your special day, and I just want you to know how grateful I am to have you in my life.
+            </p>
+            <p>
+              I hope this year brings you lots of happiness, beautiful memories, and everything you've been wishing for.
+            </p>
+            <p>You deserve to be celebrated, not just today, but every day.</p>
+            <p class="wish-letter__sign">Happy Birthday, honey. ❤️</p>
+          </article>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-something-else" hidden>
+            There's Something Else... 👀
+          </button>
+        </div>
+      </section>
+
+      <!-- Bridge into the date ask -->
+      <section
+        class="screen"
+        id="screen-bridge"
+        data-screen="bridge"
+        aria-labelledby="bridge-title"
+        hidden
+      >
+        <div class="card stage-card opening-card">
+          <div class="opening-lines" id="bridge-lines" aria-live="polite">
+            <p class="opening-line opening-line--whisper" data-line="0">Okay... birthday wish done.</p>
+            <p class="opening-line opening-line--build" data-line="1">
+              But I didn't make this website just to wish you Happy Birthday... 👀
+            </p>
+            <h1 id="bridge-title" class="opening-line headline headline--big" data-line="2">
+              I have one more question for you...
+            </h1>
+          </div>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-continue-bridge" hidden>
+            Okay... what is it? →
+          </button>
+        </div>
+      </section>
+
+      <!-- Ask -->
+      <section
+        class="screen"
+        id="screen-ask"
+        data-screen="ask"
+        aria-labelledby="ask-title"
+        hidden
+      >
+        <div class="card stage-card ask-card">
+          <div class="opening-mascot is-visible ask-mascot">
+            <img
+              id="gif-ask"
+              class="gif"
+              src="assets/cat-hopeful.svg"
+              alt="Cute animated cat looking hopeful"
+              loading="lazy"
+            />
+          </div>
+          <p class="setup-line">I have one more question for you...</p>
+          <h1 id="ask-title" class="headline ask-question">
+            Will you go out with me? 😊❤️
+          </h1>
+          <p id="no-hint" class="hint" aria-live="polite"></p>
+          <div class="btn-row" id="ask-buttons">
+            <button type="button" class="btn btn-yes" id="btn-yes" aria-label="Yes">
+              Yes ❤️
+            </button>
+            <button type="button" class="btn btn-no" id="btn-no" aria-label="Ask me later">
+              Ask me later 🙈
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Yay -->
+      <section
+        class="screen"
+        id="screen-yay"
+        data-screen="yay"
+        aria-labelledby="yay-title"
+        hidden
+      >
+        <div class="card stage-card">
+          <div class="gif-frame">
+            <img
+              id="gif-yay"
+              class="gif"
+              src="assets/cat-yay.svg"
+              alt="Cute happy cat celebrating"
+              loading="lazy"
+            />
+          </div>
+          <h1 id="yay-title" class="headline headline--big">YAY! 🥳❤️</h1>
+          <p class="lead">I'm so happy you said YES!</p>
+          <p class="sub">I knew you'd make the right choice hehe 😌</p>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-continue-yay">
+            Press to Continue →
+          </button>
+        </div>
+      </section>
+
+      <!-- Date -->
+      <section
+        class="screen"
+        id="screen-date"
+        data-screen="date"
+        aria-labelledby="date-title"
+        hidden
+      >
+        <div class="card stage-card">
+          <h1 id="date-title" class="headline">Pick A Date 📅❤️</h1>
+          <p class="lead">Choose the day for our cute little birthday plan.</p>
+          <div class="calendar" id="calendar" role="application" aria-label="Date picker"></div>
+          <p class="selected-preview" id="date-preview" aria-live="polite">No date selected yet</p>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-continue-date" disabled>
+            Continue →
+          </button>
+        </div>
+      </section>
+
+      <!-- Activity -->
+      <section
+        class="screen"
+        id="screen-activity"
+        data-screen="activity"
+        aria-labelledby="activity-title"
+        hidden
+      >
+        <div class="card stage-card">
+          <h1 id="activity-title" class="headline">What would you like to do? 💕</h1>
+          <div class="option-grid" id="activity-grid" role="radiogroup" aria-label="Date activities"></div>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-continue-activity" disabled>
+            Continue →
+          </button>
+        </div>
+      </section>
+
+      <!-- Location -->
+      <section
+        class="screen"
+        id="screen-location"
+        data-screen="location"
+        aria-labelledby="location-title"
+        hidden
+      >
+        <div class="card stage-card">
+          <h1 id="location-title" class="headline">
+            Okay... but where should our little adventure take us? 📍❤️
+          </h1>
+          <div class="option-grid" id="location-grid" role="radiogroup" aria-label="Date locations"></div>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-continue-location" disabled>
+            Continue →
+          </button>
+        </div>
+      </section>
+
+      <!-- Vibe -->
+      <section
+        class="screen"
+        id="screen-vibe"
+        data-screen="vibe"
+        aria-labelledby="vibe-title"
+        hidden
+      >
+        <div class="card stage-card">
+          <h1 id="vibe-title" class="headline">What kind of day are we having? 🎀</h1>
+          <div class="option-grid option-grid--vibe" id="vibe-grid" role="radiogroup" aria-label="Date vibes"></div>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-continue-vibe" disabled>
+            Continue →
+          </button>
+        </div>
+      </section>
+
+      <!-- Note -->
+      <section
+        class="screen"
+        id="screen-note"
+        data-screen="note"
+        aria-labelledby="note-title"
+        hidden
+      >
+        <div class="card stage-card">
+          <h1 id="note-title" class="headline">Before I lock everything in...</h1>
+          <p class="lead">Is there anything you'd like me to know for our date? 🥺❤️</p>
+          <label class="sr-only" for="date-note">Optional note for our date</label>
+          <textarea
+            id="date-note"
+            class="note-input"
+            rows="4"
+            maxlength="280"
+            placeholder="Maybe there's somewhere you've always wanted to go..."
+          ></textarea>
+          <p class="note-hint">Optional — skip if you want a full surprise ✨</p>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-continue-note">
+            Continue →
+          </button>
+        </div>
+      </section>
+
+      <!-- Review -->
+      <section
+        class="screen"
+        id="screen-review"
+        data-screen="review"
+        aria-labelledby="review-title"
+        hidden
+      >
+        <div class="card stage-card">
+          <h1 id="review-title" class="headline">Review Our Date 🥰</h1>
+          <div class="date-card" id="date-card" role="status">
+            <p class="date-card__eyebrow">💌 OUR LITTLE DATE PLAN</p>
+            <p class="date-card__for">For: Haziqah ❤️</p>
+            <div class="summary">
+              <div class="summary__row">
+                <span class="summary__label">📅 Date</span>
+                <span class="summary__value" id="review-date">—</span>
+              </div>
+              <div class="summary__row">
+                <span class="summary__label">🎀 Activity</span>
+                <span class="summary__value" id="review-activity">—</span>
+              </div>
+              <div class="summary__row">
+                <span class="summary__label">📍 Place</span>
+                <span class="summary__value" id="review-location">—</span>
+              </div>
+              <div class="summary__row">
+                <span class="summary__label">🎵 Vibe</span>
+                <span class="summary__value" id="review-vibe">—</span>
+              </div>
+              <div class="summary__row" id="review-note-row" hidden>
+                <span class="summary__label">💌 Note</span>
+                <span class="summary__value" id="review-note">—</span>
+              </div>
+            </div>
+          </div>
+          <p class="lead">Everything looks perfect... ❤️</p>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-lock">
+            Lock It In ❤️
+          </button>
+        </div>
+      </section>
+
+      <!-- Confirmed -->
+      <section
+        class="screen"
+        id="screen-confirmed"
+        data-screen="confirmed"
+        aria-labelledby="confirmed-title"
+        hidden
+      >
+        <div class="card stage-card final-card">
+          <div class="gif-frame gif-frame--sm">
+            <img
+              id="gif-confirmed"
+              class="gif"
+              src="assets/cat-yay.svg"
+              alt="Celebrating birthday cat"
+              loading="lazy"
+            />
+          </div>
+          <div class="final-burst" aria-hidden="true">🎉💖🎂</div>
+          <h1 id="confirmed-title" class="headline headline--big">IT'S A DATE! ❤️</h1>
+          <p class="lead">And more importantly...</p>
+          <p class="headline">It's your birthday! 🎂🥳</p>
+          <div class="summary" role="status">
+            <div class="summary__row">
+              <span class="summary__label">Date</span>
+              <span class="summary__value" id="confirm-date">—</span>
+            </div>
+            <div class="summary__row">
+              <span class="summary__label">Plan</span>
+              <span class="summary__value" id="confirm-plan">—</span>
+            </div>
+            <div class="summary__row">
+              <span class="summary__label">Place</span>
+              <span class="summary__value" id="confirm-location">—</span>
+            </div>
+            <div class="summary__row">
+              <span class="summary__label">Vibe</span>
+              <span class="summary__value" id="confirm-vibe">—</span>
+            </div>
+          </div>
+          <p class="final-message">
+            Haziqah, I hope this birthday brings you as much happiness as you bring into my life.
+          </p>
+          <p class="final-message final-message--soft">
+            I can't wait to celebrate this special day with you. ❤️
+          </p>
+          <button type="button" class="btn btn-primary btn-wide" id="btn-continue-confirmed">
+            One last thing... →
+          </button>
+        </div>
+      </section>
+
+      <!-- Letter -->
+      <section
+        class="screen"
+        id="screen-letter"
+        data-screen="letter"
+        aria-labelledby="letter-title"
+        hidden
+      >
+        <div class="card stage-card letter-card">
+          <h1 id="letter-title" class="headline">One last thing...</h1>
+          <div class="letter" id="letter" aria-live="polite"></div>
+          <p class="letter-footer">Made with ❤️ for Haziqah</p>
+          <p class="letter-date">20 August 🎂</p>
+          <button type="button" class="easter-egg" id="btn-easter">
+            Psst... there's one more thing 👀
+          </button>
+          <p class="easter-reveal" id="easter-reveal" hidden>
+            I love you. That's the surprise. ❤️
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/app.js" defer></script>
+  </body>
+</html>
