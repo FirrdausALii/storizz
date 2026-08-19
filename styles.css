@@ -568,14 +568,12 @@ button:disabled {
 .opening-cta {
   min-height: 56px;
   gap: 0.55rem;
-  margin-top: 0.15rem;
+  margin-top: 0.85rem;
   margin-bottom: 0.15rem;
   font-size: 1.02rem;
+  opacity: 1;
   box-shadow: 0 12px 28px rgba(232, 90, 122, 0.38), 0 0 0 5px rgba(255, 143, 171, 0.12);
-}
-
-.opening-cta.is-visible {
-  animation: cta-pulse 2.6s var(--ease) 0.45s infinite;
+  animation: cta-pulse 2.6s var(--ease) infinite;
 }
 
 .opening-cta:hover,

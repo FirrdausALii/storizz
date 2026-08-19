@@ -396,8 +396,10 @@
     lines.forEach((line) => line.classList.remove("is-visible"));
     brand?.classList.remove("is-visible");
     mascot?.classList.remove("is-visible");
-    els.btnOpenSurprise.hidden = true;
-    els.btnOpenSurprise.classList.remove("is-visible");
+    if (els.btnOpenSurprise) {
+      els.btnOpenSurprise.hidden = false;
+      els.btnOpenSurprise.classList.add("is-visible");
+    }
 
     const revealAll = () => {
       brand?.classList.add("is-visible");
@@ -425,12 +427,6 @@
         line.classList.add("is-visible");
         await wait(190);
       }
-
-      await wait(180);
-      els.btnOpenSurprise.hidden = false;
-      // force reflow so the entrance transition still plays
-      void els.btnOpenSurprise.offsetWidth;
-      els.btnOpenSurprise.classList.add("is-visible");
     })();
   }
 
