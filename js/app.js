@@ -7,6 +7,8 @@
   "use strict";
 
   const NOTIFY_EMAIL = "firdausali1710@gmail.com";
+
+  const PHOTOS = [
     { src: "assets/photos/photo-1.jpg", caption: "you" },
     { src: "assets/photos/photo-2.jpg", caption: "us" },
     { src: "assets/photos/photo-3.jpg", caption: "this" },
